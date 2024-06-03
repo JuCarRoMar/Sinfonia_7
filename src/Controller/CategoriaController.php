@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categoria;
 use App\Form\CategoriaType;
 use App\Repository\CategoriaRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -81,17 +82,21 @@ class CategoriaController extends AbstractController
     }
 
     #[Route('/consultar', name: 'consultar', methods: ['GET'])]
-    public function consultar(CategoriaRepository $categoriaRepository): JsonResponse
+    public function consultar(EntityManagerInterface $gestorEntidades): JsonResponse
     {
-        $categorias = $categoriaRepository->findAll();
-    
+        $repoCategoria = $gestorEntidades->getRepository(Categoria::class);
+        $categorias = $repoCategoria->findAll();
+        var_dump($categorias);
+        
         $data = [];
+        /*
         foreach ($categorias as $categoria) {
             $data[] = [
-                'id' => $categoria->getId(),
-                'categoria' => $categoria->getCategoria(),
+                "id" => $categoria->getId(),
+                //"categoria" => $categoria->getCategoria()
             ];
         }
+        */
     
         return new JsonResponse($data);
     }

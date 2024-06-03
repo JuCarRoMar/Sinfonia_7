@@ -16,6 +16,8 @@ class CategoriaRepository extends ServiceEntityRepository
         parent::__construct($registry, Categoria::class);
     }
 
+    
+
     //    /**
     //     * @return Categoria[] Returns an array of Categoria objects
     //     */
